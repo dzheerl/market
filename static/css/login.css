@@ -1,0 +1,23 @@
+.head_titile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .button {
+    margin: 14px 0 0 0;
+  }
+  
+  .form_name {
+    font: 14px/1.5 'Ysabeau SC';
+  }
+  
+  .form_error {
+    display: none;
+  }
