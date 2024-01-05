@@ -6,6 +6,9 @@ button.addEventListener('click', function (event) {
 
   const form_email = document.getElementById('form_email');
   const form_password = document.getElementById('form_password');
+  const changeMainForm  = document.querySelector('.main_form'); 
+
+
   const formData = {
     form_email: form_email.value,
     form_password: form_password.value
@@ -25,17 +28,37 @@ button.addEventListener('click', function (event) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(formData)
+    
+    },
+    form_email.value = '',
+    form_password.value = '',)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok.');
+      }
+      return response.text(); // Или response.json() если сервер возвращает JSON
     })
-      .then(response => response.json())
-      .then(data => {
-        // Обработка ответа сервера
-        console.log(data);
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
-    console.log("succes");
-    form_email.value = '';
-    form_password.value = '';
-  }
+    .then(data => {
+      if (data === 'Succes') {
+        // Действие при успешном ответе
+        // Например, вывод сообщения об успешном выполнении операции
+        console.log('Операция выполнена успешно!');
+        // Здесь можете добавить логику для обновления страницы или отображения сообщения об успехе
+        const mainForm = document.getElementsByClassName('main_form');
+        const newElement = document.createElement('p');
+        newElement.id = 'testid';
+        newElement.textContent = 'Hello';
+        mainForm.parentNode.replaceChild(newElement, mainForm);
+      } else {
+        // Действие при другом ответе
+        console.log('Произошла ошибка!');
+        // Здесь можете добавить логику для отображения сообщения об ошибке
+      }
+    })
+    .catch(error => {
+      // Обработка ошибок запроса
+      console.error('There has been a problem with your fetch operation:', error);
+    })  
+ }
 });
+
